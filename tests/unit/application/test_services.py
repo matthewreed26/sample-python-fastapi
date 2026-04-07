@@ -23,3 +23,27 @@ def test_register_user_raises_error_on_duplicate(mock_repo):
     # WHEN / THEN
     with pytest.raises(UserAlreadyExistsError):
         service.register_user(email="exists@test.com", username="new")
+
+def test_get_user_by_email_returns_user(mock_repo):
+    # GIVEN
+    mock_repo.get_by_email.return_value = User(email="exists@test.com", username="tester")
+    service = UserRegistrationService(user_repo=mock_repo)
+
+    # WHEN
+    user = service.get_user_by_email("exists@test.com")
+
+    # THEN
+    assert user is not None
+    assert user.email == "exists@test.com"
+
+def test_get_user_by_username_returns_user(mock_repo):
+    # GIVEN
+    mock_repo.get_by_username.return_value = User(email="exists@test.com", username="tester")
+    service = UserRegistrationService(user_repo=mock_repo)
+
+    # WHEN
+    user = service.get_user_by_username("tester")
+
+    # THEN
+    assert user is not None
+    assert user.username == "tester"

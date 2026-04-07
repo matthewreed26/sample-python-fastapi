@@ -1,3 +1,5 @@
+from typing_extensions import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from src.application.services import UserRegistrationService, UserAlreadyExistsError
 from src.api.schemas import UserCreateRequest, UserResponse
@@ -8,7 +10,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def register_user(
     request: UserCreateRequest,
-    service: UserRegistrationService = Depends(get_registration_service)
+    service: Annotated[UserRegistrationService, Depends(get_registration_service)]
 ):
     try:
         user = service.register_user(email=request.email, username=request.username)
@@ -19,7 +21,7 @@ def register_user(
 @router.get("/email/{email}", response_model=UserResponse)
 def get_user_by_email(
     email: str,
-    service: UserRegistrationService = Depends(get_registration_service)
+    service: Annotated[UserRegistrationService, Depends(get_registration_service)]
 ):
     user = service.get_user_by_email(email)
     if not user:
@@ -29,7 +31,7 @@ def get_user_by_email(
 @router.get("/username/{username}", response_model=UserResponse)
 def get_user_by_username(
     username: str,
-    service: UserRegistrationService = Depends(get_registration_service)
+    service: Annotated[UserRegistrationService, Depends(get_registration_service)]
 ):
     user = service.get_user_by_username(username)
     if not user:

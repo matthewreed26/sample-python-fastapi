@@ -7,7 +7,11 @@ class InMemoryUserRepository(UserRepository):
 
     def save(self, user: User) -> User:
         self._users[user.email] = user
+        self._users[user.username] = user
         return user
 
     def get_by_email(self, email: str) -> User | None:
         return self._users.get(email)
+
+    def get_by_username(self, username: str) -> User | None:
+        return self._users.get(username)
