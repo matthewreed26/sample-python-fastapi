@@ -14,3 +14,9 @@ class UserRegistrationService:
         
         new_user = User(email=email, username=username)
         return self.user_repo.save(new_user)
+    
+    def get_user_by_email(self, email: str) -> User | None:
+        return self.user_repo.get_by_email(email)
+
+    def get_user_by_username(self, username: str) -> User | None:
+        return self.user_repo.get_by_username(username)

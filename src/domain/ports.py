@@ -7,3 +7,6 @@ class UserRepository(Protocol):
 
     def get_by_email(self, email: str) -> User | None:
         ...
+    
+    def get_by_username(self, username: str) -> User | None:
+        ...

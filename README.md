@@ -22,10 +22,10 @@ uv sync
 **2. Run the development server:**
 
 ```bash
-uv run uvicorn src.app.api.main:app --reload
+uv run uvicorn src.api.main:app --reload
 ```
 
-The API documentation will be available at http://127.0.0.1:8000/docs.
+The API documentation will be available at <http://127.0.0.1:8000/docs>.
 
 **3. Run the test suite (BDD-Style with Coverage):**
 
